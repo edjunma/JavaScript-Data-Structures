@@ -19,3 +19,23 @@ const retrieveFinalValue = () => {
 };
 
 retrieveFinalValue(exampleArray);
+
+// Avoid large functions
+
+const addMultiplySubtract = (a, b, c) => {
+	// addition
+	const addition = a + b + c;
+
+	// multiplication
+	const multiplication = a * b * c;
+
+	// subtraction
+	const subtraction = a - b - c;
+
+	// return a string (addition, multiplication, subtraction)
+	return `${addition} ${multiplication} ${subtraction}`;
+};
+
+const add = (a, b, c) => a + b + c;
+const multiply = (a, b, c) => a * b * c;
+const subtract = (a, b, c) => a - b - c;
