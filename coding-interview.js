@@ -94,3 +94,71 @@ if ($.isArray(arrayList)) {
 
 // Modern way to check now
 Array.isArray(arrayList);
+
+// Q6: How would you use a closure to create a private counter?
+function counter() {
+	var _counter = 0;
+	// return an object with several functions that allow you to modify the private _counter variable
+	return {
+		add: function(increment) {
+			_counter += increment;
+		},
+		retrieve: function() {
+			return 'The counter is currently at: ' + _counter;
+		}
+	};
+}
+
+var c = counter();
+c.add(5);
+c.add(9);
+
+// Now we can access the private variable in the following way
+c.retrieve();
+
+// Q7: Write a function that would allow you to do this.
+var addSix = createBase(6);
+addSix(10);
+addSix(21);
+
+function createBase(baseNumber) {
+	return function(N) {
+		return baseNumber + N;
+	};
+}
+
+var addSix = createBase(6);
+addSix(10);
+addSix(21);
+
+// Q8: How would you check if a number is an integer?
+function isInt(num) {
+	return num % 1 === 0;
+}
+
+console.log(isInt(4)); //true
+console.log(isInt(12.2)); //false
+console.log(isInt(0.3)); //false
+
+// Q9: Explain what a callback function is and provide a simple example.
+// A callback function is a function that is passed to another function as an argument and is executed after some operation has been completed.
+function modifyArray(arr, callback) {
+	// do something to array here
+	arr.push(100);
+	// then execute the callback function that was passed
+	callback();
+}
+
+var arr = [1, 2, 3, 4, 5];
+
+modifyArray(arr, function() {
+	console.log('array has been modified', arr);
+});
+
+// Q10: FizzBuzz Challenge - create a for loop that iterates up to 100 while outputting "fizz" at multiples of 3, "buzz" at multiples of 5, and "fizzbuzz" at multiples of 3 and 5.
+
+for (let i = 1; i <= 100; i++) {
+	let fizz = i % 3 == 0,
+		buzz = i % 5 == 0;
+	console.log(fizz ? (buzz ? 'FizzBuzz' : 'Fizz') : buzz ? 'Buzz' : i);
+}
