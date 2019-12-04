@@ -162,3 +162,12 @@ for (let i = 1; i <= 100; i++) {
 		buzz = i % 5 == 0;
 	console.log(fizz ? (buzz ? 'FizzBuzz' : 'Fizz') : buzz ? 'Buzz' : i);
 }
+
+// Q11: Make this work
+duplicate([1, 2, 3, 4, 5]); // [1,2,3,4,5,1,2,3,4,5]
+
+function duplicate(arr) {
+	return arr.concat(arr);
+}
+
+duplicate([1, 2, 3, 4, 5]); // [1,2,3,4,5,1,2,3,4,5]
