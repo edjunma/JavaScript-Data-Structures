@@ -171,3 +171,33 @@ function duplicate(arr) {
 }
 
 duplicate([1, 2, 3, 4, 5]); // [1,2,3,4,5,1,2,3,4,5]
+
+// Q12: Provide some examples of non-boolean value coercion to a boolean one
+// Falsy values in JavaScript are ""(empty string), 0, -0, NaN (invalid number), null, undefined, false
+// Any value that is not falsy is truthy like "hello", 42, true, [], [1, "2", "3"] (arrays), {}, {a:42} (objects), function foo() {} (functions)
+
+// Q13: Given two strings, return true if they are anagrams of one another
+// Anagram is word/phrase/name that is rearranged with the letters of one another for example "Mary" can become "Army", "Iceman" can become "Cinema".
+
+var firstWord = 'Mary';
+var secondWord = 'Army';
+
+isAnagram(firstWord, secondWord);
+
+function isAnagram(first, second) {
+	// For case insensitivity, change both words to lowercase.
+	var a = first.toLowerCase();
+	var b = second.toLowerCase();
+
+	// Sort the strings, and join the resulting array to a string then compare the results
+	a = a
+		.split('')
+		.sort()
+		.join('');
+	b = b
+		.split('')
+		.sort()
+		.join('');
+
+	return a === b;
+}
