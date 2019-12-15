@@ -201,3 +201,17 @@ function isAnagram(first, second) {
 
 	return a === b;
 }
+
+// Q14: What will be the output of the following code?
+
+var y = 1;
+if (function f() {}) {
+	y += typeof f;
+}
+
+console.log(y);
+
+var k = 1;
+if(1) {}
+
+// Answer: The above code would output 1undefined
