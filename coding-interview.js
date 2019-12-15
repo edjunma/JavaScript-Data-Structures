@@ -212,6 +212,63 @@ if (function f() {}) {
 console.log(y);
 
 var k = 1;
-if(1) {}
+if (1) {
+	eval(function foo() {});
+	k += typeof foo;
+}
+
+console.log(k);
 
 // Answer: The above code would output 1undefined
+
+// Q15: What will the following code output?
+(function() {
+	var a = (b = 5);
+})();
+
+console.log(b);
+
+// The above code will output 5 even though it seems as if the variable was declared within a function and can't be accessed outside of it.
+
+var a = (b = 5);
+
+// is interpreted as
+
+var a = b;
+b = 5;
+// But bi is not declared anywhere in the function with var so it is set equal to 5 in the global scope.
+
+// Q16: Write a function that would allow you to do this
+
+multiply(5)(6);
+
+//Answer: You can create a closure to keep the value of a even after the inner function is returned. The inner function that is being returned is created within an outer function, making it a closure, and it has access to the variables within the outer function, in this case the variable a.
+
+function multiply(a) {
+	return function(b) {
+		return a * b;
+	};
+}
+
+multiply(5)(6);
+
+// Q17: How does the "this" keyword work? Provide some code examples.
+//In JavaScript, "this" always refers to the "owner" of the function w're executing or rather to the object that a function is a method of.
+
+function foo() {
+	console.log(this.bar);
+}
+
+var bar = "global";
+
+var obj1 = {
+	bar: "obj1",
+	foo: foo
+}
+
+var obj2 = {
+	bar: "obj2"
+};
+
+foo(); // "global"
+obj1.foo(); // "obj1"
