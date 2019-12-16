@@ -259,16 +259,78 @@ function foo() {
 	console.log(this.bar);
 }
 
-var bar = "global";
+var bar = 'global';
 
 var obj1 = {
-	bar: "obj1",
+	bar: 'obj1',
 	foo: foo
-}
+};
 
 var obj2 = {
-	bar: "obj2"
+	bar: 'obj2'
 };
 
 foo(); // "global"
 obj1.foo(); // "obj1"
+foo.call(obj2); // "obj2"
+new foo(); //undefined
+
+// Q18: Write a recursive function that performs a binary search
+
+function recursiveBinarySearch(array, value, leftPosition, rightPosition) {
+	if (leftPosition < rightPosition) return -1;
+
+	var middlePivot = Math.floor((leftPosition + rightPosition) / 2);
+	if (array[middlePivot] === value) {
+		return middlePivot;
+	} else if (array[middlePivot] > value) {
+		return recursiveBinarySearch(array, value, leftPosition, middlePivot - 1);
+	} else {
+		return recursiveBinarySearch(array, value, middlePivot + 1, rightPosition);
+	}
+}
+
+// Q19: What is "closure" in JavaScript? Provide an example?
+// A closure is a function defined inside another function (called parent function) and has access to the variable which is declared and defined in parent function scope.
+// The closure has access to variable in three scopes, the variable declared in his own scope, variable declared in parent function scope, and variable declared in global namespace.
+
+var globalVar = 'abc';
+
+// Parent self invoking function
+(function outerFunction(outerArg) {
+	// Variable declared in outerFunction function scope
+	var outerFuncVar = 'x';
+	// Closure self-invoking function
+	(function innerFunction(innerArg) {
+		// Variable declared in innerFunction function scope
+		var innerFuncVar = 'y';
+		console.log(
+			'outerArg = ' +
+				outerArg +
+				'\n' +
+				'outerFuncVar = ' +
+				outerFuncVar +
+				'\n' +
+				'innerArg = ' +
+				innerArg +
+				'\n' +
+				'innerFuncVar = ' +
+				innerFuncVar +
+				'\n' +
+				'globalVar = ' +
+				globalVar
+		);
+		// end of scope innerFunction
+	})(5); // Pass 5 as parameter
+	// end of scope outerFunction
+})(7); // Pass 7 as parameter
+
+// Q20: What will be the output of the following code?
+var output = (function(x) {
+	delete x;
+	return x;
+})(0);
+
+console.log(output);
+
+// Answer: The above code will output 0 as the delete operator is used to delete the property from the object. Here x is not an object as it is a local variable, the delete operator doesn't affect local variable.
