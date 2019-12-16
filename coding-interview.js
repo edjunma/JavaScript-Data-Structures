@@ -334,3 +334,80 @@ var output = (function(x) {
 console.log(output);
 
 // Answer: The above code will output 0 as the delete operator is used to delete the property from the object. Here x is not an object as it is a local variable, the delete operator doesn't affect local variable.
+
+//Q21: What will be the output of the following code?
+var Employee = {
+	company: 'xyz'
+};
+
+var emp1 = Object.create(Employee);
+delete emp1.company;
+console.log(emp1.company);
+
+// The above code will output xyz as the output as emp1 object got company as the prototype property. The delete operator doesn't delete the prototype property.
+
+// Q22: When would you use the "bind" function?
+// The bind() method creates anew function, that when called has its this keyword set to the provided value, with a given sequence of arguments preceding any provided when the new function is called.
+// A good use of the bind function is when you have a particular function that you want to call with a specific this value.You can then use the bind to pass a specific object to a function that uses a this reference.
+
+function fullName() {
+	return 'Hello, this is ' + this.first + ' ' + this.last;
+}
+
+console.log(fullName()); // => Hello this is undefined undefined
+
+// Create a person object and pass its values to the fullName function
+var person = { first: 'Foo', last: 'Bar' };
+console.log(fullName.bind(person)()); // => Hello this is Foo Bar
+
+// Q23: What will the following code output?
+0.1 + 0.2 === 0.3;
+
+// The answer will surprisingly output false because of floating point errors in internally representing certain numbers. 0.1 + 0.2 does not nicely come out to 0.3 but instead the result is actually 0.300000000000004 because the computer cannot internally represent the correct number. One solution to get around this problem is to round the results when doing arithmetic with decimal numbers.
+
+// Q24: how would you create a private variable in JavaScript?
+// To create a private variable in js that cannot be changed you first need to create it as a local variable within a function. Even if the function is executed the variable cannot be accessed outside of the function.
+function func() {
+	var priv = 'secret code';
+}
+
+console.log(priv); //throws error
+
+// To access the variable, a helper function would need to be created that returns the private variable.
+function func() {
+	var priv = 'secret code';
+	return function() {
+		return priv;
+	};
+}
+
+var getPriv = func();
+console.log(getPriv()); // => secret code
+
+// Q25: Describe the Revealing Module Pattern design pattern
+// A variation of the module pattern is called the Revealing Module Pattern. The purpose is to maintain encapsulation and reveal certain variables and methods returned in an object literal. The direct implementation looks like this:
+var Exposer = (function() {
+	var privateVariable = 10;
+
+	var privateMethod = function() {
+		console.log('Inside a private method!');
+		privateVariable++;
+	};
+
+	var methodToExpose = function() {
+		console.log('This is a method I want to expose!');
+	};
+
+	var otherMethodIWantToExpose = function() {
+		privateMethod();
+	};
+
+	return {
+		first: methodToExpose,
+		second: otherMethodIWantToExpose
+	};
+})();
+
+Exposer.first(); // Output: This is a method I want to expose!
+Exposer.second(); // Output: Inside a private method!
+Exposer.methodToExpose; // undefined
